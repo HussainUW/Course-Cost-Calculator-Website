@@ -1,0 +1,151 @@
+<html>
+<head>
+<h1 size = 20, style = "font-family:Impact, Charcoal, sans-serif">E-MARKS</h1><br>
+<script language = "JavaScript">
+let totalCost = 0;
+function GoForIt(){
+var N,N_O;
+var co = parseInt(document.EMarks.totcos.value);
+N = parseInt(document.EMarks.AM.value);
+N_O = parseInt(document.EMarks.NC.value);
+if (N >= 1 && N < 5){
+co = N*5; 
+}
+if (N >= 5 && N < 10){
+co = N*10; 
+}
+if (N > 9){
+co = N*15; 
+}
+if (document.EMarks.DE.checked == true){
+co += 50;
+}
+N_O = N_O + 1;
+totalCost += co; 
+//Radio Buttons:
+if (document.EMarks.RO[1].checked == true){
+totalCost += (totalCost*0.20);
+}
+if (document.EMarks.RO[2].checked == true){
+totalCost += (totalCost*0.05);
+}
+if(N == 1){
+	if (document.EMarks.items.value == "item-1"){
+	window.alert("Thank you for using E-Marks")
+	}
+	if (document.EMarks.items.value == "item-2"){
+	totalCost -= (totalCost*0.25)
+	}
+	if (document.EMarks.items.value == "item-3"){
+	totalCost -= (totalCost*0.50)
+	}
+}
+document.EMarks.NC.value = N_O;
+document.EMarks.totcos.value = totalCost;
+if (N_O == 1){
+document.EMarks.SYR.value = "Student ID: " + document.EMarks.ID.value + "\n";
+}
+document.EMarks.SYR.value += document.EMarks.NC.value + " " + document.EMarks.C_N.value + " " + document.EMarks.DS.value + " " + "Number of Marks: " + N + " " + "Cost: " + co + " " + "Total: " + totalCost;
+if (document.EMarks.DE.checked == true){
+document.EMarks.SYR.value += " DE" + "\n";
+} else {document.EMarks.SYR.value += "\n";}
+//Danger Zone:
+document.EMarks.DZ.value += totalCost;
+if (totalCost % 10 == 0){
+var noose = totalCost / 10;}
+else{noose = (totalCost-5) / 10;}
+for(let i = 0; i < noose; i++){
+document.EMarks.DZ.value += "*";
+}
+document.EMarks.DZ.value += "\n";
+if (totalCost > 250){
+window.alert("Request Denied - Clear and Reset")
+}
+}
+
+function cr(){
+window.alert("Request will be cleared and reset");
+document.EMarks.DZ.value = "";
+document.EMarks.SYR.value = "";
+document.EMarks.ID.value = "";
+document.EMarks.DS.value = "";
+document.EMarks.C_N.value = "";
+document.EMarks.AM.value = "";
+document.EMarks.NC.value = 0;
+document.EMarks.totcos.value = 0;
+document.EMarks.RO[0].checked = true;
+document.EMarks.DE.checked = false;
+totalCost = 0;
+}
+</script>
+
+<style type=text/css media=screen>
+form {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  color: "#64AF77"; 
+}
+
+body {
+  background-color: lightblue;
+}
+
+legend{
+    padding: 0 10px;
+    font: 18px "Lucida Console", Monaco, monospace;
+    color: "black";
+    text-transform: uppercase;
+    text-align: left;
+}
+
+input, textarea {
+  background-color : #d1d1d1;
+}
+
+select {
+    background-color:#d1d1d1;
+}
+</style>
+</head>
+<body>
+<form name = "EMarks">
+	<fieldset>
+	<legend size = 16>The Request</legend><br>
+		<p>
+		<table align = "center" , border = "3">
+                <tr><td>Id</td><td> <input name = "ID" type = "text" size="15"></td></tr>
+                <tr><td>Course Number</td><td> <input name = "C_N" type = "text" size="15"></td></tr>
+                <tr><td>Description</td><td> <input name = "DS" type = "text" size="15"></td></tr>           
+                <tr><td>Distance Education</td><td> <input name = "DE" type = "checkbox"></td></tr>
+                <tr><td>Additional Marks</td><td> <input name = "AM" type = "text" size="15"></td></tr>
+		</table>
+		</p>
+        </fieldset>
+        <br>
+	<font color = "black">Number Of Courses</font> <input name = "NC" value = 0 type = "text" size="15"></input> <font color = "black">Total Cost</font> <input name = "totcos" value = 0 type = "text" size ="15"></input><br>             
+        <font color = "black">Reasons:  </font><input name = RO checked type = radio><font color ="black">Doctor note</font><input name = "RO" type = "radio"><font color = "black">Lack of Work</font><input name = "RO" type = "radio"><font color = "black">Some Compassion</font>
+	<br>     
+        <input type = "button" value = "Go For It" onclick = "GoForIt()"></input>
+	<input type = "button" value = "Clear and Reset" onclick = "cr()"></input> 
+        <select id="items"><br>
+        <br>
+        <option value="item-1">First Time Users</option>
+        <option value="item-2">Frequent Flier</option>
+        <option value="item-3">Buying A Degree</option>
+        <br>
+        </select>
+        <br>
+	<br>
+        <font color = "black", size = 5>Summary of Your Request</font><br>   
+        <textarea name="SYR" rows = "10" cols="100"></textarea><br>
+        <br>
+	<font color = "black", size = 5>Danger Range</font><br>
+        <textarea name="DZ" rows = "10" cols="100"></textarea><br>
+</form>
+</body>
+</html>
+
+
